@@ -71,7 +71,9 @@ PhishGuard examines these indicators and presents its findings through a browser
 
 ### 🖥️ PhishGuard Dashboard
 
-<img src="docs/screenshots/dashboard.png" alt="PhishGuard Dashboard" width="90%">
+<a href="docs/screenshots/dashboard.png">
+  <img src="docs/screenshots/dashboard.png" alt="PhishGuard Dashboard" width="90%">
+</a>
 
 *The PhishGuard web interface for submitting and analyzing suspicious emails.*
 
@@ -79,13 +81,13 @@ PhishGuard examines these indicators and presents its findings through a browser
 
 ### 🚨 Phishing Analysis Results
 
-<img src="docs/screenshots/analysis-result.png" alt="PhishGuard Phishing Analysis Results" width="90%">
+<a href="docs/screenshots/analysis-result.png">
+  <img src="docs/screenshots/analysis-result.png" alt="PhishGuard Phishing Analysis Results" width="90%">
+</a>
 
 *Example analysis showing the risk score, verdict, and detected indicators.*
 
 </div>
-
-> **Note:** Upload your actual screenshots to `docs/screenshots/` using the filenames shown above. Until then, these images will not render.
 
 ---
 
@@ -284,8 +286,6 @@ PhishGuard-Email-Analyzer/
 └── README.md
 ```
 
-*The `docs/screenshots/` folder is intended for your screenshots; create and upload it if it does not yet exist.*
-
 ---
 
 ## 🔐 Security & Limitations
@@ -309,6 +309,7 @@ PhishGuard-Email-Analyzer/
 Cybersecurity | Python | Email Threat Analysis
 
 [![GitHub](https://img.shields.io/badge/GitHub-rutikashinde273-181717?style=for-the-badge&logo=github)](https://github.com/rutikashinde273)
+
 [![Repository](https://img.shields.io/badge/Project-PhishGuard-2ea44f?style=for-the-badge&logo=github)](https://github.com/rutikashinde273/PhishGuard-Email-Analyzer)
 
 </div>
