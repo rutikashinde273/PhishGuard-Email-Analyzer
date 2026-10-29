@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PhishGuard | Email Triage</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">PG</div>
+    <div>
+      <h1>PhishGuard</h1>
+      <p>Phishing Email Analyzer · SOC triage workspace</p>
+    </div>
+    <span class="local-badge">LOCAL LAB</span>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">01 / INGEST</p>
+          <h2>Analyze a suspicious email</h2>
+        </div>
+        <span class="chip">Max upload: 2 MB</span>
+      </div>
+      <p class="muted">Paste raw email headers and body, or upload an <code>.eml</code> file. Links are extracted but never opened.</p>
+      {% if error %}<div class="error">{{ error }}</div>{% endif %}
+      <form method="post" enctype="multipart/form-data">
+        <label for="email_file">Upload .eml file</label>
+        <input id="email_file" name="email_file" type="file" accept=".eml">
+        <div class="divider"><span>OR PASTE RAW EMAIL</span></div>
+        <label for="raw_email">Email source</label>
+        <textarea id="raw_email" name="raw_email" rows="12" placeholder="From: security@example.com&#10;To: analyst@example.com&#10;Subject: Action required&#10;Authentication-Results: spf=fail; dkim=none; dmarc=fail&#10;&#10;Your account needs verification...">{{ raw_email }}</textarea>
+        <button type="submit">Run analysis <span>→</span></button>
+      </form>
+    </section>
+
+    <section class="panel info-panel">
+      <p class="eyebrow">02 / WORKFLOW</p>
+      <h2>Investigation pipeline</h2>
+      <div class="pipeline">
+        <div><span>01</span><p><strong>Parse</strong><small>Headers and message body</small></p></div>
+        <div><span>02</span><p><strong>Extract</strong><small>URLs, addresses, hashes</small></p></div>
+        <div><span>03</span><p><strong>Score</strong><small>Rule-based risk indicators</small></p></div>
+        <div><span>04</span><p><strong>Report</strong><small>Findings for analyst review</small></p></div>
+      </div>
+      <div class="note"><strong>Analyst note</strong><p>A score is a triage aid, not proof. Confirm suspicious indicators with trusted security tools and context.</p></div>
+    </section>
+
+    {% if result %}
+    <section class="panel results-panel">
+      <div class="section-heading">
+        <div><p class="eyebrow">03 / FINDINGS</p><h2>Analysis results</h2></div>
+        <span class="severity severity-{{ result.severity|lower }}">{{ result.severity }} risk</span>
+      </div>
+      <div class="score-row">
+        <div class="score">{{ result.risk_score }}<small>/100</small></div>
+        <div><h3>{{ result.verdict }}</h3><p class="muted">Heuristic risk score based on detected indicators.</p></div>
+      </div>
+      <div class="score-track"><span style="width: {{ result.risk_score }}%"></span></div>
+
+      <h3>Detection findings</h3>
+      <div class="findings">
+        {% for item in result.findings %}
+        <article class="finding">
+          <div><span class="mini-severity">{{ item.severity }}</span><h4>{{ item.title }}</h4></div>
+          <p>{{ item.detail }}</p>
+          {% if item.points %}<small>Risk points: +{{ item.points }}</small>{% endif %}
+        </article>
+        {% endfor %}
+      </div>
+
+      <div class="result-grid">
+        <div class="subpanel"><h3>Extracted URLs ({{ result.urls|length }})</h3>
+          {% if result.urls %}<ul>{% for item in result.urls %}<li><code>{{ item }}</code></li>{% endfor %}</ul>{% else %}<p class="muted">No URLs detected.</p>{% endif %}
+        </div>
+        <div class="subpanel"><h3>Email addresses ({{ result.email_addresses|length }})</h3>
+          {% if result.email_addresses %}<ul>{% for item in result.email_addresses %}<li><code>{{ item }}</code></li>{% endfor %}</ul>{% else %}<p class="muted">None detected.</p>{% endif %}
+        </div>
+        <div class="subpanel"><h3>Hashes in body ({{ result.hashes|length }})</h3>
+          {% if result.hashes %}<ul>{% for item in result.hashes %}<li><code>{{ item }}</code></li>{% endfor %}</ul>{% else %}<p class="muted">No MD5, SHA-1, or SHA-256-looking strings detected.</p>{% endif %}
+        </div>
+        <div class="subpanel"><h3>Key headers</h3>
+          <p><strong>From:</strong> {{ result.headers.from or "Not supplied" }}</p>
+          <p><strong>Reply-To:</strong> {{ result.headers.reply_to or "Not supplied" }}</p>
+          <p><strong>Subject:</strong> {{ result.headers.subject or "Not supplied" }}</p>
+          <p><strong>Authentication-Results:</strong> {{ result.headers.authentication_results or "Not supplied" }}</p>
+        </div>
+      </div>
+
+      <div class="evidence"><strong>Evidence SHA-256</strong><code>{{ result.evidence_sha256 }}</code><small>Hash of the supplied email text for evidence tracking; not an attachment hash.</small></div>
+      <form method="post" action="/report">
+        <input type="hidden" name="raw_email" value="{{ raw_email }}">
+        <button class="secondary" type="submit">Export investigation report (.json) ↓</button>
+      </form>
+      <p class="disclaimer">{{ result.disclaimer }}</p>
+    </section>
+    {% endif %}
+  </main>
+  <footer>PhishGuard · Defensive email triage lab · Never open suspicious links or execute unknown attachments.</footer>
+</body>
+</html>
