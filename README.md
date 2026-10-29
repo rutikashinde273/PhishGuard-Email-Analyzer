@@ -19,7 +19,6 @@ A Python-powered cybersecurity tool for email threat analysis, rule-based risk s
 
 [📸 Screenshots](#-screenshots) •
 [✨ Features](#-key-features) •
-[⚙️ Installation](#-installation) •
 [🧪 Demo](#-analysis-workflow) •
 [🔐 Security](#-security--limitations)
 
@@ -39,10 +38,8 @@ A Python-powered cybersecurity tool for email threat analysis, rule-based risk s
 - [🧠 Detection Capabilities](#-detection-capabilities)
 - [⚙️ Technology Stack](#️-technology-stack)
 - [🔄 Analysis Workflow](#-analysis-workflow)
-- [🚀 Installation](#-installation)
 - [📂 Project Structure](#-project-structure)
 - [🔐 Security & Limitations](#-security--limitations)
-- [🗺️ Future Improvements](#️-future-improvements)
 - [👩‍💻 Author](#-author)
 
 ---
@@ -74,8 +71,6 @@ PhishGuard examines these indicators and presents its findings through a browser
 
 ### 🖥️ PhishGuard Dashboard
 
-<!-- Replace with your uploaded screenshot path -->
-
 <img src="docs/screenshots/dashboard.png" alt="PhishGuard Dashboard" width="90%">
 
 *The PhishGuard web interface for submitting and analyzing suspicious emails.*
@@ -83,8 +78,6 @@ PhishGuard examines these indicators and presents its findings through a browser
 <br>
 
 ### 🚨 Phishing Analysis Results
-
-<!-- Replace with your uploaded screenshot path -->
 
 <img src="docs/screenshots/analysis-result.png" alt="PhishGuard Phishing Analysis Results" width="90%">
 
@@ -240,63 +233,6 @@ PhishGuard uses rule-based checks to identify indicators that may warrant furthe
 
 ---
 
-## 🚀 Installation
-
-### 📋 Prerequisites
-
-- Python 3.10 or a compatible version
-- pip
-- Git
-
-### 1️⃣ Clone the Repository
-
-```bash
-git clone https://github.com/rutikashinde273/PhishGuard-Email-Analyzer.git
-cd PhishGuard-Email-Analyzer
-```
-
-### 2️⃣ Create a Virtual Environment
-
-**Windows PowerShell:**
-
-```powershell
-python -m venv .venv
-```
-
-### 3️⃣ Activate the Environment
-
-```powershell
-.\.venv\Scripts\Activate.ps1
-```
-
-If PowerShell blocks activation, use Command Prompt:
-
-```cmd
-.venv\Scripts\activate.bat
-```
-
-### 4️⃣ Install Dependencies
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-### 5️⃣ Start PhishGuard
-
-```bash
-python app.py
-```
-
-### 6️⃣ Open the Dashboard
-
-Open your browser and visit:
-
-**http://127.0.0.1:5000**
-
-🎉 PhishGuard should now be available locally.
-
----
-
 ## 🧪 Analysis Workflow
 
 For a controlled demonstration, use a fictional test email such as:
@@ -361,21 +297,6 @@ PhishGuard-Email-Analyzer/
 - A SHA-256 hash identifies the supplied evidence but does not prove that an email is authentic or malicious.
 - Extracted URLs should be investigated cautiously; the tool's analysis should not require opening suspicious links.
 - Use fictional samples for public demonstrations and avoid publishing private email content or sensitive information.
-
----
-
-## 🗺️ Future Improvements
-
-Potential areas for further development:
-
-- [ ] Unicode homoglyph detection
-- [ ] Expanded brand impersonation coverage
-- [ ] Additional phishing indicator rules
-- [ ] More detailed investigation reports
-- [ ] Automated unit tests and detection test cases
-- [ ] Improved explainability of risk scores
-
-*These are possible future enhancements, not claims that all features are already implemented.*
 
 ---
 
